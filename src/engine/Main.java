@@ -1,22 +1,7 @@
 package engine;
 
 import processing.core.PApplet;
-import scala.*;
-import scala.collection.*;
-import scala.collection.Iterable;
-import scala.collection.immutable.*;
-import scala.collection.immutable.Seq;
-import scala.collection.immutable.Set;
-import scala.collection.immutable.SortedSet;
-import scala.collection.mutable.Buffer;
-import scala.collection.mutable.Builder;
-import scala.collection.mutable.StringBuilder;
-import scala.math.Numeric;
-import scala.math.Ordering;
-import scala.reflect.ClassTag;
-import scala.util.Either;
 
-import java.util.ArrayList;
 
 public class Main extends PApplet {
     static PhysicsThread t = new PhysicsThread();
@@ -31,7 +16,7 @@ public class Main extends PApplet {
 
 
     public void settings(){
-        size(500,500);
+        size(900,900);
     }
 
     public void setup(){

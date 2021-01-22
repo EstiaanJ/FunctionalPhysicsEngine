@@ -1,5 +1,5 @@
 package engine
 
-class MassEntityPair(massA: MassEntity, massB: MassEntity) {
+class MassEntityPair(val one: MassEntity, val two: MassEntity) {
 
 }

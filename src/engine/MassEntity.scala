@@ -12,14 +12,14 @@ class MassEntity(val pos: VectorD,val velocity: VectorD,val netForce: VectorD,va
   }
 
 
-  def newPos(newPos: VectorD): MassEntity ={
+  def setPos(newPos: VectorD): MassEntity ={
     new MassEntity(newPos,velocity,netForce,mass,radius,id)
   }
-  /*
-    def newFromVel(newVel: VectorD, old: MassEntity): MassEntity ={
-      new MassEntity(old.pos,newVel,old.netForce,old.mass,old.radius,old.id)
-    }
-  */
+
+  def setVelocity(newVel: VectorD): MassEntity ={
+      new MassEntity(pos,newVel,netForce,mass,radius,id)
+  }
+
   def draw(conext: PApplet): Unit ={
     conext.circle(this.pos.xFloat(),this.pos.yFloat(),10)
   }

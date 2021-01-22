@@ -68,6 +68,10 @@ case class VectorD(val x: Double, val y: Double) {
     return theta() - vector.theta()
   }
 
+  def tangent(): VectorD = {
+    VectorD(-y,x)
+  }
+
   def xFloat(): Float = {
     x.toFloat
   }

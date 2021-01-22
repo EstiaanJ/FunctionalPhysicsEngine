@@ -10,33 +10,71 @@ class State(val entities: Array[MassEntity]) {
    for(entity <- entities) yield entity.stepPhysics(VectorD(0,0),deltaTime)
   }
 
-  def checkForCollisions(): Unit = {
-    val pairList: util.ArrayList[MassEntityPair] = new util.ArrayList[MassEntityPair]()
-    val newList: util.ArrayList[MassEntity] = new util.ArrayList[MassEntity]()
+  def checkForCollisions(): Array[MassEntity] = {
+    val collidedList: util.ArrayList[MassEntity] = new util.ArrayList[MassEntity]()
+    val uncolidedList: util.ArrayList[MassEntity] = new util.ArrayList[MassEntity]()
+    val checkedIDList: util.ArrayList[Integer] = new util.ArrayList[Integer]()
     for(currentEntity <- entities){
       for(targetEntity <- entities){
         if(currentEntity.id != targetEntity.id) {
-          if(overlap(currentEntity,targetEntity)){
-            val dis = overlapDistance(currentEntity,targetEntity)
-            val overlap = 0.5 * (dis - currentEntity.radius - targetEntity.radius);
-
-            var newCX = currentEntity.pos.x
-            newCX -= overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
-            var newCY = currentEntity.pos.y
-            newCY -= overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
-            val newC = currentEntity.newPos(VectorD(newCX,newCY))
-
-            var newTX = targetEntity.pos.x
-            newTX += overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
-            var newTY = targetEntity.pos.y
-            newTY += overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
-            val newT = targetEntity.newPos(VectorD(newTX,newTY))
-
-            pairList.add(new MassEntityPair(newC,newT))
+          if (overlap(currentEntity, targetEntity)) {
+            if(!checkedIDList.contains(currentEntity.id)){
+              checkedIDList.add(currentEntity.id)
+              collidedList.add(solveCollision(seperate(currentEntity, targetEntity)).one)
+            }
+          } else {
+            if(!checkedIDList.contains(currentEntity.id)){
+              checkedIDList.add(currentEntity.id)
+              uncolidedList.add(currentEntity)
+            }
           }
         }
       }
     }
+    val finalList: util.ArrayList[MassEntity] = Combiner.combineLists(collidedList,uncolidedList)
+
+    var stateArray = new Array[MassEntity](finalList.size)
+    stateArray = finalList.toArray(stateArray)
+    return stateArray
+  }
+
+  def seperate(currentEntity: MassEntity, targetEntity: MassEntity): MassEntityPair ={
+    val dis = overlapDistance(currentEntity,targetEntity)
+    val overlap = 0.5 * (dis - currentEntity.radius - targetEntity.radius);
+
+    var newCX = currentEntity.pos.x
+    newCX -= overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
+    var newCY = currentEntity.pos.y
+    newCY -= overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
+    val newC = currentEntity.setPos(VectorD(newCX,newCY))
+
+    var newTX = targetEntity.pos.x
+    newTX += overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
+    var newTY = targetEntity.pos.y
+    newTY += overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
+    val newT = targetEntity.setPos(VectorD(newTX,newTY))
+
+    new MassEntityPair(newC,newT)
+  }
+
+  def solveCollision(pair: MassEntityPair): MassEntityPair ={
+    val dis = overlapDistance(pair.one, pair.two)
+    val normal = VectorD((pair.two.pos.x - pair.one.pos.x) / dis, (pair.two.pos.y - pair.one.pos.y) / dis)
+    val tangent = normal.tangent
+
+    val dotProductTanOne = pair.one.velocity.dotProduct(tangent)
+    val dotProductTanTwo = pair.two.velocity.dotProduct(tangent)
+
+    val dotProductNormOne = pair.one.velocity.dotProduct(normal)
+    val dotProductNormTwo = pair.two.velocity.dotProduct(normal)
+
+    val momentumOne = (dotProductNormOne * (pair.one.mass - pair.two.mass) + 2.0 * pair.two.mass * dotProductNormTwo) / (pair.one.mass + pair.two.mass)
+
+    val momentumTwo = (dotProductNormTwo * (pair.two.mass - pair.one.mass) + 2.0 * pair.one.mass * dotProductNormOne) / (pair.one.mass + pair.two.mass)
+
+    new MassEntityPair (
+      pair.one.setVelocity(VectorD(tangent.x * dotProductTanOne + normal.x * momentumOne, tangent.y * dotProductTanOne + normal.y * momentumOne)),
+      pair.two.setVelocity(VectorD(tangent.x * dotProductTanTwo + normal.x * momentumTwo, tangent.y * dotProductTanTwo + normal.y * momentumTwo)))
   }
 
   def draw(context: PApplet): Unit = {
