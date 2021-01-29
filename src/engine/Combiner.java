@@ -1,5 +1,7 @@
 package engine;
 
+import scala.Array$;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,5 +12,7 @@ public class Combiner {
 
         return (ArrayList<MassEntity>) newList;
     }
+
+    //public static
 
 }
