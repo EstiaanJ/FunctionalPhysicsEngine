@@ -1,15 +1,15 @@
 package engine
 
 import engine.testing.Main
-import math.VectorDouble
+import math.{VectorDouble, VectorIntegration}
 import processing.core.PApplet
 
 class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce: VectorDouble, val mass: Double, val radius: Double, val col: Int, val id: Int) {
 
   def stepPhysics(force: VectorDouble, deltaTime: Double): MassEntity ={
     val nextForce = netForce + force
-    val nextVel = Integrator.stepVelocity(Integrator.stepAcceleration(nextForce,mass),velocity,deltaTime)
-    val nextPos = Integrator.stepPosition(nextVel,pos,deltaTime)
+    val nextVel = VectorIntegration.stepVelocity(VectorIntegration.stepAcceleration(nextForce,mass),velocity,deltaTime)
+    val nextPos = VectorIntegration.stepPosition(nextVel,pos,deltaTime)
     val proposedEntity = new MassEntity(nextPos,nextVel,nextForce,mass,radius,col,id)
     proposedEntity.clampPos()
   }

@@ -71,15 +71,6 @@ case class VectorDouble(x: Double, y: Double) {
     VectorDouble(-y, x)
   }
 
-  def xFloat(): Float = {
-    x.toFloat
-  }
-
-  def yFloat(): Float = {
-    y.toFloat
-  }
-
-
   def fromPolar(mag: Double, angleIn: Double): VectorDouble = {
     val flippedAngle: Double = flipAngle(angleIn)
     VectorDouble(mag * Math.cos(flippedAngle), mag * Math.sin(flippedAngle))
@@ -98,6 +89,14 @@ case class VectorDouble(x: Double, y: Double) {
     else {
       flippedAngle + 2 * Math.PI
     }
+  }
+
+  def xFloat(): Float = {
+    x.toFloat
+  }
+
+  def yFloat(): Float = {
+    y.toFloat
   }
 
   def copy(): VectorDouble = {
