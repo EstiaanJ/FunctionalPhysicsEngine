@@ -1,5 +1,6 @@
 package engine
 
+import math.VectorD
 import processing.core.PApplet
 
 class MassEntity(val pos: VectorD, val velocity: VectorD, val netForce: VectorD, val mass: Double, val radius: Double, val col: Int, val id: Int) {

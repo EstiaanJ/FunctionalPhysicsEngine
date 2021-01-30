@@ -1,5 +1,6 @@
 package engine
 
+import math.VectorD
 import processing.core.PApplet
 
 import scala.collection.mutable.{ArrayBuffer, Map}

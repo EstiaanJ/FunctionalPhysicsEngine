@@ -1,5 +1,7 @@
 package engine;
 
+import math.VectorD;
+
 import java.util.ArrayList;
 
 public class PhysicsThread implements Runnable{

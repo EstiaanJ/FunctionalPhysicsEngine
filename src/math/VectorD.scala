@@ -1,5 +1,4 @@
-package engine
-
+package math
 
 case class VectorD(val x: Double, val y: Double) {
 
@@ -12,7 +11,7 @@ case class VectorD(val x: Double, val y: Double) {
   }
 
   def dotProduct(vec: VectorD): Double = {
-    x  * vec.x + y * vec.y
+    x * vec.x + y * vec.y
   }
 
   def scale(scalar: Double): VectorD = {
@@ -24,7 +23,7 @@ case class VectorD(val x: Double, val y: Double) {
   }
 
   def +(translation: Double): VectorD = {
-    this + new VectorD(translation,translation)
+    this + new VectorD(translation, translation)
   }
 
   def -(translation: VectorD): VectorD = {
@@ -36,24 +35,24 @@ case class VectorD(val x: Double, val y: Double) {
   }
 
   def negate(): VectorD = {
-    new VectorD(-x,-y)
+    new VectorD(-x, -y)
   }
 
   //Most likely incorrect
   def bearingTo(vector: VectorD): Double = {
-    flippedAtan2(vector.y -y, vector.x - x)
+    flippedAtan2(vector.y - y, vector.x - x)
   }
 
   def distanceTo(vector: VectorD): Double = {
     Math.abs(this.r() - vector.r())
   }
 
-  def r (): Double = {
+  def r(): Double = {
     return Math.sqrt((x * x) + (y * y))
   }
 
-  def theta (): Double = {
-    flippedAtan2(y,x)
+  def theta(): Double = {
+    flippedAtan2(y, x)
   }
 
   def thetaDegrees(): Double = {
@@ -69,7 +68,7 @@ case class VectorD(val x: Double, val y: Double) {
   }
 
   def tangent(): VectorD = {
-    VectorD(-y,x)
+    VectorD(-y, x)
   }
 
   def xFloat(): Float = {
@@ -86,14 +85,14 @@ case class VectorD(val x: Double, val y: Double) {
     new VectorD(mag * Math.cos(flippedAngle), mag * Math.sin(flippedAngle))
   }
 
-  def flipAngle(angle: Double): Double ={
+  def flipAngle(angle: Double): Double = {
     Math.PI / 2 - angle;
   }
 
-  def flippedAtan2(y :Double, x: Double): Double = {
-    val angle: Double = Math.atan2(y,x)
+  def flippedAtan2(y: Double, x: Double): Double = {
+    val angle: Double = Math.atan2(y, x)
     val flippedAngle: Double = flipAngle(angle)
-    if(flippedAngle >= 0) {
+    if (flippedAngle >= 0) {
       return flippedAngle
     }
     else {
@@ -102,7 +101,7 @@ case class VectorD(val x: Double, val y: Double) {
   }
 
   def copy(): VectorD = {
-    return VectorD(this.x,this.y)
+    return VectorD(this.x, this.y)
   }
 
   override def toString: String = {

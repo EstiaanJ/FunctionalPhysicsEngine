@@ -1,5 +1,7 @@
 package engine
 
+import math.VectorD
+
 object Integrator {
 
   def stepPosition(velocity: VectorD, pos: VectorD, time: Double): VectorD = {
