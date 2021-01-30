@@ -1,6 +1,6 @@
 package engine
 
-import math.VectorD
+import math.VectorDouble
 import processing.core.PApplet
 
 import scala.collection.mutable.{ArrayBuffer, Map}
@@ -11,14 +11,14 @@ class WorldState(val entities: Array[MassEntity]) {
   def calculateEnergy(): Double ={
     var total: Double = 0
     for(entity <- entities){
-      total += Math.abs(entity.velocity.r())
+      total += Math.abs(entity.velocity.radius())
     }
     total/entities.size
   }
 
 
   def stepMotion(deltaTime: Double): Array[MassEntity] ={
-    for(entity <- entities) yield entity.stepPhysics(VectorD(0,0),deltaTime)
+    for(entity <- entities) yield entity.stepPhysics(VectorDouble(0,0),deltaTime)
   }
 
   def resolveCollisions(): Array[MassEntity]={
@@ -85,20 +85,20 @@ class WorldState(val entities: Array[MassEntity]) {
     newCX -= overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
     var newCY = currentEntity.pos.y
     newCY -= overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
-    val newC = currentEntity.setPos(VectorD(newCX,newCY))
+    val newC = currentEntity.setPos(VectorDouble(newCX,newCY))
 
     var newTX = targetEntity.pos.x
     newTX += overlap * (currentEntity.pos.x - targetEntity.pos.x) / dis
     var newTY = targetEntity.pos.y
     newTY += overlap * (currentEntity.pos.y - targetEntity.pos.y) / dis
-    val newT = targetEntity.setPos(VectorD(newTX,newTY))
+    val newT = targetEntity.setPos(VectorDouble(newTX,newTY))
 
     new MassEntityPair (newC,newT)
   }
 
   def solveCollision(pair: MassEntityPair): MassEntityPair ={
     val dis = overlapDistance(pair.one, pair.two)
-    val normal = VectorD((pair.two.pos.x - pair.one.pos.x) / dis, (pair.two.pos.y - pair.one.pos.y) / dis)
+    val normal = VectorDouble((pair.two.pos.x - pair.one.pos.x) / dis, (pair.two.pos.y - pair.one.pos.y) / dis)
     val tangent = normal.tangent
 
     val dotProductTanOne = pair.one.velocity.dotProduct(tangent)
@@ -112,8 +112,8 @@ class WorldState(val entities: Array[MassEntity]) {
     val momentumTwo = (dotProductNormTwo * (pair.two.mass - pair.one.mass) + 2.0 * pair.one.mass * dotProductNormOne) / (pair.one.mass + pair.two.mass)
 
     new MassEntityPair (
-      pair.one.setVelocity(VectorD(tangent.x * dotProductTanOne + normal.x * momentumOne, tangent.y * dotProductTanOne + normal.y * momentumOne).scale(0.999)),
-      pair.two.setVelocity(VectorD(tangent.x * dotProductTanTwo + normal.x * momentumTwo, tangent.y * dotProductTanTwo + normal.y * momentumTwo).scale(0.999)))
+      pair.one.setVelocity(VectorDouble(tangent.x * dotProductTanOne + normal.x * momentumOne, tangent.y * dotProductTanOne + normal.y * momentumOne).scale(0.999)),
+      pair.two.setVelocity(VectorDouble(tangent.x * dotProductTanTwo + normal.x * momentumTwo, tangent.y * dotProductTanTwo + normal.y * momentumTwo).scale(0.999)))
   }
 
   def draw(context: PApplet): Unit = {

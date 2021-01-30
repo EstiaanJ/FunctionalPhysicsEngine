@@ -1,6 +1,7 @@
 package engine;
 
-import math.VectorD;
+import engine.testing.Main;
+import math.VectorDouble;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class PhysicsThread implements Runnable{
             int cRand = (int)(Math.random() * (maxC - minC + 1) + minC);
             double mass = Math.random() * (maxM - minM + 1) + minM;
 
-            initials.add(new MassEntity(new VectorD(xRand,yRand),new VectorD(xVRand,yVRand),new VectorD(0,0),mass,mass,cRand,i));
+            initials.add(new MassEntity(new VectorDouble(xRand,yRand),new VectorDouble(xVRand,yVRand),new VectorDouble(0,0),mass,mass,cRand,i));
         }
 
         MassEntity[] initialsArray = new MassEntity[initials.size()];

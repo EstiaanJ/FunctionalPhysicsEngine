@@ -1,19 +1,19 @@
 package engine
 
-import math.VectorD
+import math.VectorDouble
 
 object Integrator {
 
-  def stepPosition(velocity: VectorD, pos: VectorD, time: Double): VectorD = {
+  def stepPosition(velocity: VectorDouble, pos: VectorDouble, time: Double): VectorDouble = {
     pos + (velocity.scale(time))
   }
 
-  def stepVelocity(acceleration: VectorD, velocity: VectorD, time: Double): VectorD = {
+  def stepVelocity(acceleration: VectorDouble, velocity: VectorDouble, time: Double): VectorDouble = {
     velocity + (acceleration.scale(time))
   }
 
-  def stepAcceleration(netForce: VectorD, mass: Double): VectorD = {
-    VectorD(netForce.x/mass,netForce.y/mass)
+  def stepAcceleration(netForce: VectorDouble, mass: Double): VectorDouble = {
+    VectorDouble(netForce.x/mass,netForce.y/mass)
   }
 
 
@@ -29,7 +29,7 @@ object Integrator {
     torque/momentOfInertia
   }
 
-  def getPosition(netForce: VectorD, mass: Double, lastVelocity: VectorD, lastPos: VectorD, time: Double): VectorD = {
+  def getPosition(netForce: VectorDouble, mass: Double, lastVelocity: VectorDouble, lastPos: VectorDouble, time: Double): VectorDouble = {
     stepPosition(stepVelocity(stepAcceleration(netForce,mass),lastVelocity,time),lastPos,time)
   }
 
