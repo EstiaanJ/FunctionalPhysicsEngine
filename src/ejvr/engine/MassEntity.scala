@@ -1,7 +1,7 @@
-package engine
+package ejvr.engine
 
-import engine.testing.Main
-import math.{VectorDouble, VectorIntegration}
+import ejvr.engine.testing.Main
+import ejvr.math.{VectorDouble, VectorIntegration}
 import processing.core.PApplet
 
 class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce: VectorDouble, val mass: Double, val radius: Double, val col: Int, val id: Int) {

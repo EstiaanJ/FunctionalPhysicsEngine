@@ -1,4 +1,4 @@
-package math;
+package ejvr.math;
 
 public class VectorIntegration {
     public static VectorDouble stepPosition(VectorDouble velocity, VectorDouble pos, double time) {

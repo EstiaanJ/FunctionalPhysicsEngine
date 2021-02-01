@@ -1,4 +1,4 @@
-package math
+package ejvr.math
 
 case class VectorDouble(x: Double, y: Double) {
 

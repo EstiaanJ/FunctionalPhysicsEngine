@@ -1,6 +1,6 @@
-package engine
+package ejvr.engine
 
-import math.VectorDouble
+import ejvr.math.VectorDouble
 import processing.core.PApplet
 
 import scala.collection.mutable.{ArrayBuffer, Map}

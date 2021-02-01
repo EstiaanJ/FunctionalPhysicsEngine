@@ -1,9 +1,7 @@
-package engine.testing;
+package ejvr.engine.testing;
 
-import engine.PhysicsThread;
+import ejvr.engine.PhysicsThread;
 import processing.core.PApplet;
-
-import java.util.ArrayList;
 
 
 public class Main extends PApplet {
@@ -14,7 +12,7 @@ public class Main extends PApplet {
     Thread thread = new Thread(t);
 
     public static void main(String[] args) {
-        PApplet.main(new String[]{"engine.testing.Main"});
+        PApplet.main(new String[]{"ejvr.engine.testing.Main"});
     }
 
 

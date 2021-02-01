@@ -1,4 +1,4 @@
-package math
+package ejvr.math
 
 class Point(x: Double, y:Double) {
   def xFloat(): Float = {

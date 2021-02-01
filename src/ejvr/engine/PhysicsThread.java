@@ -1,7 +1,7 @@
-package engine;
+package ejvr.engine;
 
-import engine.testing.Main;
-import math.VectorDouble;
+import ejvr.engine.testing.Main;
+import ejvr.math.VectorDouble;
 
 import java.util.ArrayList;
 
