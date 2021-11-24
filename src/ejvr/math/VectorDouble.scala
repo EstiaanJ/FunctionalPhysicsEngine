@@ -1,6 +1,6 @@
 package ejvr.math
 
-case class VectorDouble(x: Double, y: Double) {
+case class VectorDouble(override val x: Double,override val y: Double) extends PointDouble(x, y) {
 
   def abs(): VectorDouble = {
     VectorDouble(Math.abs(x), Math.abs(y))
@@ -43,20 +43,8 @@ case class VectorDouble(x: Double, y: Double) {
     flippedAtan2(vector.y - y, vector.x - x)
   }
 
-  def distanceTo(vector: VectorDouble): Double = {
+  override def distanceTo(vector: VectorDouble): Double = {
     Math.abs(this.radius() - vector.radius())
-  }
-
-  def radius(): Double = {
-    Math.sqrt((x * x) + (y * y))
-  }
-
-  def theta(): Double = {
-    flippedAtan2(y, x)
-  }
-
-  def thetaDegrees(): Double = {
-    theta() * (180 / Math.PI)
   }
 
   def subtractMagnitude(vector: VectorDouble): Double = {
@@ -71,37 +59,12 @@ case class VectorDouble(x: Double, y: Double) {
     VectorDouble(-y, x)
   }
 
-  def fromPolar(mag: Double, angleIn: Double): VectorDouble = {
-    val flippedAngle: Double = flipAngle(angleIn)
-    VectorDouble(mag * Math.cos(flippedAngle), mag * Math.sin(flippedAngle))
+  override def fromPolar(mag: Double, angleIn: Double): VectorDouble = {
+    val p = new PointDouble(mag,angleIn)
+    VectorDouble(p.x,p.y)
   }
 
-  def flipAngle(angle: Double): Double = {
-    Math.PI / 2 - angle;
-  }
 
-  def flippedAtan2(y: Double, x: Double): Double = {
-    val angle: Double = Math.atan2(y, x)
-    val flippedAngle: Double = flipAngle(angle)
-    if (flippedAngle >= 0) {
-      flippedAngle
-    }
-    else {
-      flippedAngle + 2 * Math.PI
-    }
-  }
-
-  def xFloat(): Float = {
-    x.toFloat
-  }
-
-  def yFloat(): Float = {
-    y.toFloat
-  }
-
-  def copy(): VectorDouble = {
-    VectorDouble(this.x, this.y)
-  }
 
   override def toString: String = {
     "X: " + x + "  | Y: " + y

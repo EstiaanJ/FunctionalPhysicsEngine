@@ -99,7 +99,7 @@ class WorldState(val entities: Array[MassEntity]) {
   def solveCollision(pair: MassEntityPair): MassEntityPair ={
     val dis = overlapDistance(pair.one, pair.two)
     val normal = VectorDouble((pair.two.pos.x - pair.one.pos.x) / dis, (pair.two.pos.y - pair.one.pos.y) / dis)
-    val tangent = normal.tangent
+    val tangent = normal.tangent()
 
     val dotProductTanOne = pair.one.velocity.dotProduct(tangent)
     val dotProductTanTwo = pair.two.velocity.dotProduct(tangent)

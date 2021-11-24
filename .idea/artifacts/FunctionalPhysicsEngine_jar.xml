@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FunctionalPhysicsEngine:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FunctionalPhysicsEngine_jar</output-path>
+    <root id="archive" name="FunctionalPhysicsEngine.jar">
+      <element id="module-output" name="FunctionalPhysicsEngine" />
+      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.13.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.13.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../UnbalancedGame/UnbalancedJava/libs/core/library/core.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

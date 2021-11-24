@@ -11,7 +11,9 @@ class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce
     val nextVel = VectorIntegration.stepVelocity(VectorIntegration.stepAcceleration(nextForce,mass),velocity,deltaTime)
     val nextPos = VectorIntegration.stepPosition(nextVel,pos,deltaTime)
     val proposedEntity = new MassEntity(nextPos,nextVel,nextForce,mass,radius,col,id)
-    proposedEntity.clampPos()
+    proposedEntity
+    //proposedEntity.clampPos() THIS IS  TEST CODE
+
   }
 
   def setPos(newPos: VectorDouble): MassEntity ={
@@ -27,7 +29,7 @@ class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce
     conext.circle(this.pos.xFloat(),this.pos.yFloat(),(radius * 2).toFloat)
 
   }
-
+/* THIS IS TEST CODE
   def clampPos(): MassEntity ={
     if(pos.x > Main.SCREEN_WIDTH + 1){
       val newVel: VectorDouble  = VectorDouble(-velocity.x,velocity.y);
@@ -49,4 +51,6 @@ class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce
       this
     }
   }
+
+ */
 }
