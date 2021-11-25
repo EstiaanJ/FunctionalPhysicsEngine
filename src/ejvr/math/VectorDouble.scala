@@ -43,7 +43,7 @@ case class VectorDouble(override val x: Double,override val y: Double) extends P
     flippedAtan2(vector.y - y, vector.x - x)
   }
 
-  override def distanceTo(vector: VectorDouble): Double = {
+  def distanceTo(vector: VectorDouble): Double = {
     Math.abs(this.radius() - vector.radius())
   }
 

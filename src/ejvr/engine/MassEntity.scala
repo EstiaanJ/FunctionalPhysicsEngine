@@ -1,7 +1,6 @@
 package ejvr.engine
 
-import ejvr.engine.testing.Main
-import ejvr.math.{VectorDouble, VectorIntegration}
+import ejvr.math.{VectorDouble, VectorIntegration, PointDouble}
 import processing.core.PApplet
 
 class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce: VectorDouble, val mass: Double, val radius: Double, val col: Int, val id: Int) {
@@ -27,6 +26,11 @@ class MassEntity(val pos: VectorDouble, val velocity: VectorDouble, val netForce
   def draw(conext: PApplet): Unit ={
     conext.fill(0,mass.toInt,col);
     conext.circle(this.pos.xFloat(),this.pos.yFloat(),(radius * 2).toFloat)
+
+  }
+
+  def contains(p: PointDouble): Boolean = {
+    PhysicsUtil.circleContainsPoint(p,this.pos,this.radius)
 
   }
 /* THIS IS TEST CODE

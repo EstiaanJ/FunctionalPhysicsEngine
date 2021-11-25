@@ -1,4 +1,4 @@
-package ejvr.engine.testing;
+package ejvr.engine;
 
 import ejvr.math.PointDouble;
 import ejvr.math.VectorDouble;
